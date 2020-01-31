@@ -5,9 +5,9 @@
     @else {{--if there is a user logged in, do this below--}}
      <p> welcome {{Auth::user()->name}} </p> {{--We are using the auth class, which has a method called user. therefore we can access the user-object through the arrow--}}
      <p>Create new tweet</p>
-        <form action="/addtweet" method="POST">
+        <form action="/profile/addtweet" method="POST">
             @csrf
-        <input type='text' name='author' value='{{Auth::user()->name}}'>
+        <input type='text' name='author' value='{{Auth::user()->name}}' readonly>
             <div><textarea id='content' cols='100' name='content'>Your Tweet</textarea></div>
             <input type='submit' name='submit' value='Save Tweet'>
         </form>
@@ -21,14 +21,14 @@
         <br>
         @foreach ($tweets as $tweet)
             <br>
-            <h1>{{$tweet->author}}</h1>
+            <a href="/profile/tweets/{{{$tweet->id}}}"><h1>{{$tweet->author}}</h1></a>
             <p>{{$tweet->content}}</p>
             @if (Auth::user()->name == $tweet->author)
-                <form action="/profile" method="POST">
+                <form action="/profile/delete" method="POST">
                     @csrf
                     <button name='id'value='{{$tweet->id}}'>Delete Tweet</button>
                 </form>
-                <form action="/profile/editPost" method="POST">
+                <form action="/profile/editPost" method="GET">
                     @csrf
                     <button name='id'value='{{$tweet->id}}'>Edit Tweet</button>
                 </form>

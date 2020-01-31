@@ -19,7 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'LoginController@show');
-Route::post('/addtweet', 'LoginController@store');
-Route::post('/profile', 'LoginController@delete');
-Route::post('/profile/editPost', 'LoginController@edit');
+Route::get('/profile/tweets/{id}', 'LoginController@showtweet');
+Route::post('/profile/addtweet', 'LoginController@store');
+Route::post('/profile/delete', 'LoginController@delete');
+Route::get('/profile/editPost', 'LoginController@edit');
 Route::post('/profile/saveTweet', 'LoginController@save');
